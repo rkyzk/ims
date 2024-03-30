@@ -1,4 +1,4 @@
-package natureblossom.ims.controller;
+package natureblossom.ims.controller.copy;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -4,7 +4,48 @@
     <meta charset="UTF-8"></meta>
     <title>Register Products</title>
   </head>
-<body>
-  <h1>Inventory Management System</h1>
-</body>
+  <body>
+    <div th:replace="~{header :: header}"></div>
+    <main>
+      <h2 class="sub-title">Register Products</h2>
+      <form class="form-box" enctype="multipart/form-data">
+        <div th:object="${product}" class="items">
+	      <div>
+	        <label>Product Name：</label>
+	        <input class="box long product-name" th:field="*{name}" type="text"/>
+	      </div>
+          <label>Category：</label>
+          <select class="box short box-style" th:field="*{category}">
+            <option th:each="item : ${T(natureblossom.ims.enums.CategoryEnum).values()}"
+              th:value="${item}" th:text="${item.category}">
+            </option>
+          </select>
+	      <div class="item">
+	        <label>Manufacturer：</label>
+	        <input class="box long" th:field="*{manufacturer}" type="text"/>
+	      </div>
+	      <div class="item">
+	        <label>Price：</label>
+	        <input class="box short" th:field="*{price}" type="text"/>
+	      </div>
+	      <div class="item">
+	        <label>Stock：</label>
+	        <input class="box short" th:field="*{stock}" type="number"/>
+	      </div>
+          <div class="item">
+            <label>Description：</label>
+            <textarea th:field="*{description}"></textarea>
+          </div>
+	      <div class="item">
+	        <label>Image：</label>
+	        <input type="file"/>
+	      </div>
+	      <div class="buttons">
+	        <button class="btn register" type="submit">register</button>
+	        <button class="btn" type="button">clear</button>
+	      </div>
+	    </div>
+      </form>
+    </main>
+  </body>
 </html>
