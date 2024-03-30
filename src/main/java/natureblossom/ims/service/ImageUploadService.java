@@ -24,5 +24,3 @@ public interface ImageUploadService {
 	public S3Object download(String path, String fileName);
 	
 }
-
-	
