@@ -51,7 +51,7 @@ public class Product {
 	private String description;
 
 	/** image file name*/
-	private String fileName;
+	private String filePath;
 
 	/** created at */
 	private String createdAt;
