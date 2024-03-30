@@ -3,6 +3,7 @@ package natureblossom.ims.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,9 +37,12 @@ public class ImageUploadService {
 	 * @return image url
 	 */
 	public String uploadImg(MultipartFile multipartFile,
-			String folder, String fileName) {
+			String folder) {
 		String path = endpoint + "/" + folder;
-		String imgUrl = path + "/" + fileName;
+		LocalDateTime currTime = LocalDateTime.now();
+		String fileName = multipartFile.getOriginalFilename() +
+				currTime.toString().replace(" ", "-");
+		String filePath = folder + "/" + fileName;
 		try {
 			// convert multipart file to file.
 			File file = convertMultipartFileToFile(multipartFile);
@@ -49,7 +53,7 @@ public class ImageUploadService {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		return imgUrl;
+		return filePath;
 	}
 	
 	public S3Object downloadImg(String path, String fileName) {
