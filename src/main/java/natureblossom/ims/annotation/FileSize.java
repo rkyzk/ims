@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import natureblossom.ims.validation.FileSizeValidator;
 
 
 /**
@@ -15,7 +16,7 @@ import jakarta.validation.Payload;
  * @author R.Yazaki
  * @version 1.0.0
  */
-@Constraint()
+@Constraint(validatedBy = FileSizeValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileSize {
