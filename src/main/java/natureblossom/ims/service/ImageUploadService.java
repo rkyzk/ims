@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 
 
@@ -27,8 +26,8 @@ public class ImageUploadService {
 	@Autowired
 	private AmazonS3 amazonS3;
 	
-	@Value("${aws.endpoint.url}")
-    private String endpoint;
+	@Value("${aws.s3.bucket.name}")
+	private String bucketName;
 	
 	/*
 	 * Upload files to AWS S3 bucket.
@@ -38,18 +37,20 @@ public class ImageUploadService {
 	 */
 	public String uploadImg(MultipartFile multipartFile,
 			String folder) {
-		String path = endpoint + "/" + folder;
+		String fileName = null;
+		String filePath = null;
 		LocalDateTime currTime = LocalDateTime.now();
-		String fileName = multipartFile.getOriginalFilename() +
-				currTime.toString().replace(" ", "-");
-		String filePath = folder + "/" + fileName;
+		if(!Objects.isNull(multipartFile)) {
+			fileName = multipartFile.getOriginalFilename() + "_" +
+					currTime.toString().replace(" ", "-");
+			filePath = folder + "/" + fileName;
+		}
 		try {
 			// convert multipart file to file.
 			File file = convertMultipartFileToFile(multipartFile);
 			// upload the file to specified path
-			amazonS3.putObject(new PutObjectRequest(path, fileName, file)
-				.withCannedAcl(CannedAccessControlList.PublicRead));
-			file.delete();		
+			amazonS3.putObject(bucketName, filePath, file);
+			file.delete();
 		} catch (Exception e){
 			e.printStackTrace();
 		}

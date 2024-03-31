@@ -10,12 +10,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import natureblossom.ims.entity.Product;
+import natureblossom.ims.forms.ImageForm;
 import natureblossom.ims.service.ImageUploadService;
 import natureblossom.ims.service.ProductService;
 
@@ -42,7 +41,8 @@ public class ProductRegistrationController {
 	 */
 	@GetMapping("/product-registration")
 	public String getProductRegistration(Model model,
-			@ModelAttribute("product") Product product) {
+			@ModelAttribute("product") Product product,
+			@ModelAttribute("image") ImageForm image) {
 		return "product-registration";
 	}
 	
@@ -57,7 +57,6 @@ public class ProductRegistrationController {
 	@PostMapping("/product-registration")
 	public String postProduct(Model model, RedirectAttributes redirectAttributes,
 			@ModelAttribute("product") @Valid Product product,
-			@RequestParam("imgFile") MultipartFile file,
 			BindingResult bindingResult) throws IOException {
 		
 		// if there're validation errors, display register product page again.
@@ -66,9 +65,9 @@ public class ProductRegistrationController {
 		}
 		
 		// if image has been added, upload it to S3 bucket
-		if(!Objects.isNull(file)) {
+		if(!Objects.isNull(product.getMultipartFile())) {
 			String filePath = imgUploadService.uploadImg(
-					file, product.getCategory());
+					product.getMultipartFile(), product.getCategory());
 			product.setFilePath(filePath);
 		}
 		// insert product in DB
