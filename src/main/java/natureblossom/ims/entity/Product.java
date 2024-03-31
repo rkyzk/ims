@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import natureblossom.ims.annotation.FileName;
 import natureblossom.ims.annotation.FileSize;
+import natureblossom.ims.annotation.FileType;
 
 /**
  * Entity class for 'Product' model.
@@ -58,6 +59,7 @@ public class Product {
 	private String filePath;
 	
 	/** image file (not to be inserted in DB) */
+	@FileType
 	@FileSize(maxSize = 819200)
 	@FileName(maxLength = 15)
 	private MultipartFile multipartFile;

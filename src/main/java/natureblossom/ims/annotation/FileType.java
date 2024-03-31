@@ -5,8 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-// import natureblossom.ims.validation.FileTypeValidator;
+import natureblossom.ims.validation.FileTypeValidator;
 
 /**
  * Validate file type
@@ -14,7 +15,7 @@ import jakarta.validation.Payload;
  * @author R.Yazaki
  * @version 1.0.0
  */
-// @Constraint(validatedBy = FileTypeValidator.class)
+@Constraint(validatedBy = FileTypeValidator.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileType {
