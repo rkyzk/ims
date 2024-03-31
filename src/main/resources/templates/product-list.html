@@ -9,6 +9,41 @@
     <main>
       <h2 class="sub-title">Product List</h2>
       <button class="btn" onclick="location.href='product-registration'">register</button>
+      <label class="item-count" th:text="'Total items: ' + ${itemCount}"></label>
+      <div class="scroll-bar">
+        <table border="1">
+          <thead class="bg-color">
+            <tr>
+              <th>image</th>
+              <th>id</th>
+	          <th>name</th>     
+	          <th>price</th>
+	          <th>stock</th>
+	          <th>update</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr class="table-rows" th:each="item: ${prodList}">
+	          <td>
+	            <img class="product-img" th:src="${awsUrl + item.filePath}"
+	              onerror="" th:alt="${item.name}"/>
+	          </td>
+	          <td class="format id-price-format"><label th:text="${item.id}"></label></td>
+	          <td class="format"><label th:text="${item.name}"></label></td>
+	          <td class="format">
+	            <label th:text="${#numbers.formatDecimal(item.price,1,2)}"></label>
+	          </td>
+	          <td class="format"><label th:text="${item.stock}"></label></td>
+	          <td>
+	            <form>
+	              <input type="hidden" th:value="${item.id}" name="id"/>
+	              <button class="list-update" type="submit">update</button>
+	            </form>
+	          </td>
+	        </tr>
+	      </tbody>
+        </table>
+      </div>
     </main>
   </body>
 </html>

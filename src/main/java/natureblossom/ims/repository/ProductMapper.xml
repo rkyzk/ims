@@ -27,7 +27,7 @@
   </insert>
   
   <!-- get product list -->
-  <select id="getProductList" resultType="natureblossom.ims.entity.ProductInfo">
+  <select id="getProductList" resultType="natureblossom.ims.entity.Product">
     SELECT
         name,
         category,
@@ -40,7 +40,7 @@
     FROM
         product_entity
     WHERE
-        delFlg = '0'
+        del_flg = '0'
     ORDER BY
         id ASC
   </select>

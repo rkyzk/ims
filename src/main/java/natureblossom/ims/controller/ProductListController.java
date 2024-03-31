@@ -3,6 +3,7 @@ package natureblossom.ims.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +18,12 @@ import natureblossom.ims.service.ProductService;
  */
 @Controller
 public class ProductListController {
+
 	@Autowired
 	private ProductService productService;
+	
+	@Value("${aws.endpoint.url}")
+	private String endpoint;
 	
 	/**
 	 * Display product list page.
@@ -32,6 +37,7 @@ public class ProductListController {
 		List<Product> prodList = productService.getProductList();
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("itemCount", prodList.size());
+		model.addAttribute("awsUrl", endpoint);
 		return "product-list";
 	}
 }
