@@ -26,10 +26,9 @@ import natureblossom.ims.service.ProductService;
 public class ProductRegistrationController {
 	@Autowired
 	private ProductService productService;
-
-	@Autowired
-	private ImageUploadService imgUploadService;
 	
+	@Autowired
+	private ImageUploadService imgUploadService;	
 	
 	/**
 	 * Display product registration page.
@@ -64,8 +63,9 @@ public class ProductRegistrationController {
 		
 		// if image has been added, upload it to S3 bucket
 		if(!Objects.isNull(product.getMultipartFile())) {
+			String fileName = product.getMultipartFile().getOriginalFilename();
 			String filePath = imgUploadService.uploadImg(
-					product.getMultipartFile(), product.getCategory());
+					product.getMultipartFile(), product.getCategory(), fileName);		
 			product.setFilePath(filePath);
 		}
 		// insert product in DB
