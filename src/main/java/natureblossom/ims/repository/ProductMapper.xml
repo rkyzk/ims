@@ -25,4 +25,23 @@
         #{filePath}
     )
   </insert>
+  
+  <!-- get product list -->
+  <select id="getProductList" resultType="natureblossom.ims.entity.ProductInfo">
+    SELECT
+        name,
+        category,
+        manufacturer,
+        price,
+        stock,
+        file_path,
+        created_at,
+        updated_at
+    FROM
+        product_entity
+    WHERE
+        delFlg = '0'
+    ORDER BY
+        id ASC
+  </select>
 </mapper>
