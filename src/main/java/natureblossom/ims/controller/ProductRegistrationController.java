@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import natureblossom.ims.entity.Product;
-import natureblossom.ims.forms.ImageForm;
 import natureblossom.ims.service.ImageUploadService;
 import natureblossom.ims.service.ProductService;
 
@@ -41,8 +40,7 @@ public class ProductRegistrationController {
 	 */
 	@GetMapping("/product-registration")
 	public String getProductRegistration(Model model,
-			@ModelAttribute("product") Product product,
-			@ModelAttribute("image") ImageForm image) {
+			@ModelAttribute("product") Product product) {
 		return "product-registration";
 	}
 	
