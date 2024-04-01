@@ -1,13 +1,18 @@
 package natureblossom.ims.controller;
 
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
 import natureblossom.ims.entity.Product;
 import natureblossom.ims.service.ProductService;
 
@@ -39,5 +44,24 @@ public class ProductUpdateController {
 		model.addAttribute("product", product);
 		model.addAttribute("awsUrl", endpoint);
 		return "product-update";
+	}
+	
+	/**
+	 * Update product and display product list page.
+	 *
+	 * @param  
+	 * @param  
+	 * @return product list page
+	 */
+	@PutMapping("/product-update")
+	public String putUpdateProduct(Model model,
+			@ModelAttribute @Valid Product product,
+			@BindingResult bindingResult) throws IOException {	
+		if (bindingResult.hasErrors()) {
+			return "product-update";
+		}
+		productService.updateProduct(product.id);
+		model.addAttribute("awsUrl", endpoint);
+		return "redirect:/product-list";
 	}
 }
