@@ -36,7 +36,7 @@
 	          </td>
 	          <td class="format"><label th:text="${item.stock}"></label></td>
 	          <td>
-	            <form>
+	            <form action="/product-update" method="get">
 	              <input type="hidden" th:value="${item.id}" name="id"/>
 	              <button class="list-update" type="submit">update</button>
 	            </form>

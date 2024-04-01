@@ -35,4 +35,14 @@ public class ProductService {
 	public List<Product> getProductList() {
 		return productMapper.getProductList();
 	}
+	
+	/**
+	 * Update product
+	 * 
+	 * @param id
+	 * @return product
+	 */
+	public Product getProduct(int id) {
+		return productMapper.getProduct(id);
+	}
 }
