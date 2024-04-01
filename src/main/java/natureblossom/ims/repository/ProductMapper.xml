@@ -29,6 +29,7 @@
   <!-- get product list -->
   <select id="getProductList" resultType="natureblossom.ims.entity.Product">
     SELECT
+        id,
         name,
         category,
         manufacturer,
@@ -45,4 +46,23 @@
         id ASC
   </select>
   
+  <!-- get product -->
+  <select id="getProduct" resultType="natureblossom.ims.entity.Product">
+    SELECT
+        id,
+        name,
+        category,
+        manufacturer,
+        price,
+        stock,
+        description,
+        file_path,
+        created_at,
+        updated_at
+    FROM
+        product_entity
+    WHERE
+        del_flg = '0'
+        AND id =#{id}
+  </select>
 </mapper>
