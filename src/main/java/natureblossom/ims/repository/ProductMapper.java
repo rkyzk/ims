@@ -9,8 +9,10 @@ import natureblossom.ims.entity.Product;
 
 @Mapper
 public interface ProductMapper {
-	// insert product
+	/** insert product */
 	public void insertProduct(Product product);
-	// get product list
+	/** get product list */
 	public List<Product> getProductList();
+	/** get product by id */
+	public Product getProduct(int id);
 }

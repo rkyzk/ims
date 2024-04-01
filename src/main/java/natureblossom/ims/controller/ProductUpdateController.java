@@ -32,7 +32,7 @@ public class ProductUpdateController {
 	 */
 	@GetMapping("/product-update")
 	public String getProductList(Model model) {
-		/** Product product = productService.getProduct();
+		/** Product product = productService.getProduct(id);
 		model.addAttribute("product", product); */
 		model.addAttribute("awsUrl", endpoint);
 		return "product-update";
