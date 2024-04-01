@@ -25,8 +25,9 @@
 	      <tbody>
 	        <tr class="table-rows" th:each="item: ${prodList}">
 	          <td>
-	            <img class="product-img" th:src="${awsUrl + item.filePath}"
-	              onerror="" th:alt="${item.name}"/>
+	            <!-- <img class="product-img" th:src="${path}"
+	              onerror="" th:alt="${item.name}"/> -->
+	              <label th:text="${item.filePath}"></label>
 	          </td>
 	          <td class="format id-price-format"><label th:text="${item.id}"></label></td>
 	          <td class="format"><label th:text="${item.name}"></label></td>

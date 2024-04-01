@@ -1,6 +1,5 @@
 package natureblossom.ims.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,16 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import natureblossom.ims.entity.Product;
 import natureblossom.ims.service.ProductService;
 
-/** Controller for product registration page.
+/** Controller for product update page.
  *
  * @author R.Yazaki
  * @version 1.0.0
  */
 @Controller
-public class ProductListController {
+public class ProductUpdateController {
 
 	@Autowired
 	private ProductService productService;
@@ -26,18 +24,17 @@ public class ProductListController {
 	private String endpoint;
 	
 	/**
-	 * Display product list page.
+	 * Display product update page.
 	 *
 	 * @param  
 	 * @param  
-	 * @return product list page
+	 * @return product update page
 	 */
-	@GetMapping("/product-list")
+	@GetMapping("/product-update")
 	public String getProductList(Model model) {
-		List<Product> prodList = productService.getProductList();
-		model.addAttribute("prodList", prodList);
-		model.addAttribute("itemCount", prodList.size());
+		/** Product product = productService.getProduct();
+		model.addAttribute("product", product); */
 		model.addAttribute("awsUrl", endpoint);
-		return "product-list";
+		return "product-update";
 	}
 }
