@@ -8,8 +8,12 @@
     <div th:replace="~{header :: header}"></div>
     <main>
       <h2 class="sub-title">Update Products</h2>
-      <form th:object="${product}" class="form-box" th:method="post" th:action="@{/}"
+      <form th:object="${product}" class="form-box" method="post" action="/product-update"
         enctype="multipart/form-data">
+        <input type="hidden" th:field="*{delFlg}" />
+        <input type="hidden" th:field="*{filePath}" />
+        <input type="hidden" th:field="*{createdAt}" />
+        <input type="hidden" th:field="*{updatedAt}" />
         <div>
           <label>id：</label>
           <input class="product-id" type="text" th:field="*{id}" readonly/>
@@ -51,8 +55,7 @@
 	      <p class="text-danger" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"/>
 	    </div>
 	    <div class="buttons">
-	      <button class="btn update" type="submit" th:formaction="@{/product-update}"
-            name="_method" value="put">update</button>
+	      <button class="btn update" type="submit" value="update">update</button>
           <button class="btn delete" type="submit" value="delete">delete</button>
 	    </div>   
       </form>

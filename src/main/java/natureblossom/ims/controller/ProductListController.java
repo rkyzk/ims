@@ -35,6 +35,7 @@ public class ProductListController {
 	@GetMapping("/product-list")
 	public String getProductList(Model model) {
 		List<Product> prodList = productService.getProductList();
+		System.out.println(prodList.get(0).getUpdatedAt());		
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("itemCount", prodList.size());
 		model.addAttribute("awsUrl", endpoint);

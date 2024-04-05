@@ -3,6 +3,6 @@
 ## Overview
 ## Bugs
 
-All ids (serial) appeared to be 0 on prod list page.
+can't get updatedAt from db. shows null though a value exists in the table.
 
 ## Credit

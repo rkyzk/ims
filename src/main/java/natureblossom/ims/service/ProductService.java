@@ -22,7 +22,7 @@ public class ProductService {
 	private ProductMapper productMapper;
 	
 	/**
-	 * Insert product
+	 * Insert product.
 	 * 
 	 * @param product
 	 */
@@ -31,18 +31,33 @@ public class ProductService {
 		productMapper.insertProduct(product);
 	}
 	
-	
+	/**
+	 * Get product list.
+	 * 
+	 * @return List<Product>
+	 */
 	public List<Product> getProductList() {
 		return productMapper.getProductList();
 	}
-	
+
 	/**
-	 * Update product
+	 * Get product
 	 * 
 	 * @param id
 	 * @return product
 	 */
 	public Product getProduct(int id) {
 		return productMapper.getProduct(id);
+	}
+
+	/**
+	 * Update product
+	 * 
+	 * @param id
+	 * @return product
+	 */
+	@Transactional
+	public int updateProduct(Product product) {
+		return productMapper.updateProduct(product);
 	}
 }

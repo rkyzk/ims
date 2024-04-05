@@ -2,18 +2,21 @@ package natureblossom.ims.controller;
 
 
 import java.io.IOException;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 import natureblossom.ims.entity.Product;
+import natureblossom.ims.service.ImageUploadService;
 import natureblossom.ims.service.ProductService;
 
 /** Controller for product update page.
@@ -26,6 +29,9 @@ public class ProductUpdateController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private ImageUploadService imgUploadService;
 	
 	@Value("${aws.endpoint.url}")
 	private String endpoint;
@@ -42,6 +48,7 @@ public class ProductUpdateController {
 			@RequestParam("id") int id) {
 		Product product = productService.getProduct(id);
 		model.addAttribute("product", product);
+		System.out.println(product.getFilePath());
 		model.addAttribute("awsUrl", endpoint);
 		return "product-update";
 	}
@@ -53,15 +60,27 @@ public class ProductUpdateController {
 	 * @param  
 	 * @return product list page
 	 */
-	@PutMapping("/product-update")
-	public String putUpdateProduct(Model model,
+	@PostMapping("/product-update")
+	public String postUpdateProduct(Model model,
 			@ModelAttribute @Valid Product product,
-			@BindingResult bindingResult) throws IOException {	
+			BindingResult bindingResult) throws IOException {	
 		if (bindingResult.hasErrors()) {
 			return "product-update";
 		}
-		productService.updateProduct(product.id);
-		model.addAttribute("awsUrl", endpoint);
+		
+		// if image has been added, upload it to S3 bucket
+		if(!Objects.isNull(product.getMultipartFile())) {
+			String fileName = product.getMultipartFile().getOriginalFilename();
+			String filePath = imgUploadService.uploadImg(
+					product.getMultipartFile(), product.getCategory(), fileName);		
+			product.setFilePath(filePath);
+		}
+		
+		int returnVal = productService.updateProduct(product);
+		System.out.println(returnVal);
+//	    if (returnVal == 0) {
+//	    	// display error message
+//	    }
 		return "redirect:/product-list";
 	}
 }
