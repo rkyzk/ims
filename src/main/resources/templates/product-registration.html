@@ -15,7 +15,7 @@
       <h2 class="text-center">Register Products</h2>
       <div class="container">
       <form th:object="${product}" method="post"  action="/product-registration"
-        enctype="multipart/form-data" role="form" class='form-horizontal'>
+        enctype="multipart/form-data" role="form">
         <div>
 	      <label for="product-name" class="item-label">Product Name：</label>
 	      <input class="form-control" th:field="*{name}"
