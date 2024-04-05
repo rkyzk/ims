@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/* --------------
+
+Common to all pages
+
+------------------*/
+
+body {
+  font-family: "sans-serif";
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
