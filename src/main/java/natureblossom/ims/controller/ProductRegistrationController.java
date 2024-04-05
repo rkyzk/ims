@@ -1,17 +1,17 @@
 package natureblossom.ims.controller;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
@@ -28,10 +28,12 @@ import natureblossom.ims.service.ProductService;
 public class ProductRegistrationController {
 	@Autowired
 	private ProductService productService;
-
+	
 	@Autowired
 	private ImageUploadService imgUploadService;
 	
+	@Autowired
+	private MessageSource msg;
 	
 	/**
 	 * Display product registration page.
@@ -55,9 +57,8 @@ public class ProductRegistrationController {
 	 * @param bindingResult
 	 */
 	@PostMapping("/product-registration")
-	public String postProduct(Model model, RedirectAttributes redirectAttributes,
+	public String postProduct(Model model, Locale locale, RedirectAttributes redirectAttributes,
 			@ModelAttribute("product") @Valid Product product,
-			@RequestParam("imgFile") MultipartFile file,
 			BindingResult bindingResult) throws IOException {
 		
 		// if there're validation errors, display register product page again.
@@ -66,13 +67,17 @@ public class ProductRegistrationController {
 		}
 		
 		// if image has been added, upload it to S3 bucket
-		if(!Objects.isNull(file)) {
+		if(!Objects.isNull(product.getMultipartFile())) {
+			String fileName = product.getMultipartFile().getOriginalFilename();
 			String filePath = imgUploadService.uploadImg(
-					file, product.getCategory());
+					product.getMultipartFile(), product.getCategory(), fileName);		
 			product.setFilePath(filePath);
 		}
 		// insert product in DB
-		productService.insertProduct(product);	
+		productService.insertProduct(product);
+		// send success message to the list controller
+		redirectAttributes.addFlashAttribute("message", msg.getMessage("REGSUC", null, locale));
+
 		// redirect to product list page.
 		return "redirect:/product-list";
 	}

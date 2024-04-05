@@ -25,4 +25,60 @@
         #{filePath}
     )
   </insert>
+  
+  <!-- get product list -->
+  <select id="getProductList" resultType="natureblossom.ims.entity.Product">
+    SELECT
+        id,
+        name,
+        category,
+        manufacturer,
+        price,
+        stock,
+        file_path,
+        updated_at
+    FROM
+        product_entity
+    WHERE
+        del_flg = '0'
+    ORDER BY
+        id ASC
+  </select>
+  
+  <!-- get product -->
+  <select id="getProduct" resultType="natureblossom.ims.entity.Product">
+    SELECT
+        id,
+        name,
+        category,
+        manufacturer,
+        price,
+        stock,
+        description,
+        file_path,
+        updated_at
+    FROM
+        product_entity
+    WHERE
+        del_flg = '0'
+        AND id =#{id}
+  </select>
+  
+  <!-- update product -->
+  <update id="updateProduct" parameterType="natureblossom.ims.entity.Product">
+    UPDATE
+        product_entity
+    SET
+        name = #{name},
+        category = #{category},
+        manufacturer = #{manufacturer},
+        price = #{price},
+        stock = #{stock},
+        description = #{description},
+        file_path = #{filePath},
+        updated_at = CURRENT_TIMESTAMP
+    WHERE
+        id = #{id}
+    <!-- AND updated_at = #{updatedAt} -->
+  </update>
 </mapper>

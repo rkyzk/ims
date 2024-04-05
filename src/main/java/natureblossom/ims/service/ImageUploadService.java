@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 
 
@@ -27,8 +25,8 @@ public class ImageUploadService {
 	@Autowired
 	private AmazonS3 amazonS3;
 	
-	@Value("${aws.endpoint.url}")
-    private String endpoint;
+	@Value("${aws.s3.bucket.name}")
+    private String bucketName;
 	
 	/*
 	 * Upload files to AWS S3 bucket.
@@ -37,18 +35,15 @@ public class ImageUploadService {
 	 * @return image url
 	 */
 	public String uploadImg(MultipartFile multipartFile,
-			String folder) {
-		String path = endpoint + "/" + folder;
+			String folder, String origFileName) {
 		LocalDateTime currTime = LocalDateTime.now();
-		String fileName = multipartFile.getOriginalFilename() +
-				currTime.toString().replace(" ", "-");
+		String fileName = origFileName + currTime.toString().replace(" ", "-");
 		String filePath = folder + "/" + fileName;
 		try {
 			// convert multipart file to file.
 			File file = convertMultipartFileToFile(multipartFile);
 			// upload the file to specified path
-			amazonS3.putObject(new PutObjectRequest(path, fileName, file)
-				.withCannedAcl(CannedAccessControlList.PublicRead));
+			amazonS3.putObject(bucketName, filePath, file);
 			file.delete();		
 		} catch (Exception e){
 			e.printStackTrace();

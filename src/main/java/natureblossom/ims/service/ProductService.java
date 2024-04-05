@@ -1,5 +1,7 @@
 package natureblossom.ims.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +22,42 @@ public class ProductService {
 	private ProductMapper productMapper;
 	
 	/**
-	 * Insert product
+	 * Insert product.
 	 * 
 	 * @param product
 	 */
 	@Transactional
 	public void insertProduct(Product product) {
 		productMapper.insertProduct(product);
+	}
+	
+	/**
+	 * Get product list.
+	 * 
+	 * @return List<Product>
+	 */
+	public List<Product> getProductList() {
+		return productMapper.getProductList();
+	}
+
+	/**
+	 * Get product
+	 * 
+	 * @param id
+	 * @return product
+	 */
+	public Product getProduct(int id) {
+		return productMapper.getProduct(id);
+	}
+
+	/**
+	 * Update product
+	 * 
+	 * @param id
+	 * @return product
+	 */
+	@Transactional
+	public int updateProduct(Product product) {
+		return productMapper.updateProduct(product);
 	}
 }

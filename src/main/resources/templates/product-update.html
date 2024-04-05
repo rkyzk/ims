@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8"></meta>
+    <title>Update Products</title>
+    <link rel="stylesheet"
+	  th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/webjars/jquery/jquery.min.js}" defer></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" defer></script>
+  </head>
+  <body>
+    <div th:replace="~{header :: header}"></div>
+    <main class="container-fluid">
+      <h2 class="text-center">Update Products</h2>
+      <div class="col-4 offset-7">
+        <button class="btn px-2 mx-2" onclick="location.href='register-product'">register new product</button>
+        <button class="btn px-2" onclick="location.href='product-list'">product list</button>
+      </div>
+      <div class="container">
+        <form th:object="${product}" role="form" method="post"
+          action="/product-update" enctype="multipart/form-data">
+          <input type="hidden" th:field="*{delFlg}" />
+          <input type="hidden" th:field="*{filePath}" />
+          <input type="hidden" th:field="*{createdAt}" />
+          <input type="hidden" th:field="*{updatedAt}" />
+          <span>
+            <label for="id">ID:</label>
+            <input class="input-id" type="text" th:field="*{id}" readonly/>
+          </span>      
+	    <div class="mt-1">
+	      <label for="name">Product Name：</label>
+	      <input class="form-control" th:field="*{name}" type="text"/>
+	      <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+	    </div>
+	    <div class="col-6 mt-1">
+          <label for="category">Category：</label>
+          <select class="form-select" th:field="*{category}">
+            <option th:each="item : ${T(natureblossom.ims.enums.CategoryEnum).values()}"
+              th:value="${item}" th:text="${item.category}">
+            </option>
+          </select>
+        </div>
+	    <div class="mt-1">
+	      <label for="manufacturer">Manufacturer：</label>
+	      <input class="form-control" th:field="*{manufacturer}"
+	        id="manufacturer" type="text"/>
+	      <p class="text-danger" th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"/>
+	    </div>
+	    <div class="row mt-1">
+	      <div class="col-6">
+	        <label for="price">Price：</label>
+	        <input class="form-control" th:field="*{price}"
+	          id="price" type="text"/>
+	        <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
+	      </div>
+	      <div class="col-6">
+	        <label for="stock">Stock：</label>
+	        <input class="form-control" th:field="*{stock}" type="number"/>
+	        <p class="text-danger" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"/>
+	      </div>
+	    </div>
+        <div class="mt-1">
+          <label for="description">Description：</label>
+          <textarea class="form-control" th:field="*{description}"></textarea>
+          <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"/>
+        </div>
+	    <div class="col-6 mt-1">
+	      <label for="multipartFile">Image：</label>
+	      <input name="image" class="form-control"
+	        th:field="*{multipartFile}" type="file"/>
+	      <p class="text-danger" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"/>
+	    </div>
+	    <div class="my-2">
+	      <button class="btn" type="submit" value="update">update</button>
+          <button class="btn" type="submit" value="delete">delete</button>
+          <button class="btn" onclick="location.href='product-list'">cancel</button>
+	    </div>   
+      </form>
+      </div>
+    </main>
+    <div th:replace="~{footer :: footer}"></div>
+  </body>
+</html>
