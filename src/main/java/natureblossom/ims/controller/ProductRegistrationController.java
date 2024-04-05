@@ -1,9 +1,11 @@
 package natureblossom.ims.controller;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +30,10 @@ public class ProductRegistrationController {
 	private ProductService productService;
 	
 	@Autowired
-	private ImageUploadService imgUploadService;	
+	private ImageUploadService imgUploadService;
+	
+	@Autowired
+	private MessageSource msg;
 	
 	/**
 	 * Display product registration page.
@@ -52,7 +57,7 @@ public class ProductRegistrationController {
 	 * @param bindingResult
 	 */
 	@PostMapping("/product-registration")
-	public String postProduct(Model model, RedirectAttributes redirectAttributes,
+	public String postProduct(Model model, Locale locale, RedirectAttributes redirectAttributes,
 			@ModelAttribute("product") @Valid Product product,
 			BindingResult bindingResult) throws IOException {
 		
@@ -69,7 +74,10 @@ public class ProductRegistrationController {
 			product.setFilePath(filePath);
 		}
 		// insert product in DB
-		productService.insertProduct(product);	
+		productService.insertProduct(product);
+		// send success message to the list controller
+		redirectAttributes.addFlashAttribute("message", msg.getMessage("REGSUC", null, locale));
+
 		// redirect to product list page.
 		return "redirect:/product-list";
 	}
