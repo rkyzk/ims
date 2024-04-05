@@ -36,7 +36,8 @@ h2 {
   color: #eee;
   font-size: 1.2rem;
   background-color: #446688;
-  width: 90px;
+  min-width: 80px;
+  padding: 2px 3px;
 }
 
 .btn:hover {
@@ -67,4 +68,34 @@ Product update page
 .input-id {
   border: none;
   width: 40px;
+}
+
+/** ---------------------------
+
+Product list page
+ 
+---------------------------- */
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;	
+}
+
+.table-style {
+  width: 100%;
+}
+
+.update-btn, .register-btn {
+  padding: 0;
+}
+
+.table-headding {
+  background-color: #0099cc;
+}
+
+.image-col {
+  width: 250px;
+}
+
+.name-col {
+  width: 150px; 
 }

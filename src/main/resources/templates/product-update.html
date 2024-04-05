@@ -13,6 +13,10 @@
     <div th:replace="~{header :: header}"></div>
     <main class="container-fluid">
       <h2 class="text-center">Update Products</h2>
+      <div class="col-4 offset-7">
+        <button class="btn px-2 mx-2" onclick="location.href='register-product'">register new product</button>
+        <button class="btn px-2" onclick="location.href='product-list'">product list</button>
+      </div>
       <div class="container">
         <form th:object="${product}" role="form" method="post"
           action="/product-update" enctype="multipart/form-data">
@@ -67,9 +71,10 @@
 	        th:field="*{multipartFile}" type="file"/>
 	      <p class="text-danger" th:if="${#fields.hasErrors('multipartFile')}" th:errors="*{multipartFile}"/>
 	    </div>
-	    <div class="mt-2">
+	    <div class="my-2">
 	      <button class="btn" type="submit" value="update">update</button>
           <button class="btn" type="submit" value="delete">delete</button>
+          <button class="btn" onclick="location.href='product-list'">cancel</button>
 	    </div>   
       </form>
       </div>
