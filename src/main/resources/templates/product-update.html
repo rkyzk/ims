@@ -13,11 +13,11 @@
     <div th:replace="~{header :: header}"></div>
     <main class="container-fluid">
       <h2 class="text-center">Update Products</h2>
-      <div class="col-4 offset-7">
-        <button class="btn px-2 mx-2" onclick="location.href='register-product'">register new product</button>
-        <button class="btn px-2" onclick="location.href='product-list'">product list</button>
-      </div>
-      <div class="container">
+      <div class="container content-box">
+        <div class="d-flex justify-content-end mx-3">
+          <button class="btn px-2 mx-1" onclick="location.href='product-registration'">register new product</button>
+          <button class="btn px-2" onclick="location.href='product-list'">product list</button>
+        </div>
         <form th:object="${product}" role="form" method="post"
           action="/product-update" enctype="multipart/form-data">
           <input type="hidden" th:field="*{delFlg}" />

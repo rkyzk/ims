@@ -38,6 +38,7 @@ h2 {
   background-color: #446688;
   min-width: 80px;
   padding: 2px 3px;
+  white-space: nowrap;
 }
 
 .btn:hover {
@@ -56,6 +57,11 @@ h2 {
 Register and Update pages
  
 ---------------------------- */
+.content-box {
+  max-width: 750px;
+  margin-top: 20px;
+}
+
 .select-box {
   width: 350px;
 }
@@ -98,4 +104,9 @@ table, th, td {
 
 .name-col {
   width: 150px; 
+}
+
+.list-content {
+  max-width: 700px;
+  margin: 0 auto; 	
 }
