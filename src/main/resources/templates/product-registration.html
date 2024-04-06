@@ -42,7 +42,10 @@
 	      <div class="row mt-1">
 	        <div class="col">
 	          <label for="price" class="item-label">Price：</label>
-	          <input class="form-control" id="price" th:field="*{price}" type="text"/>
+	          <div class="d-flex">
+	            <span class="mt-1">$</span>
+	            <input class="form-control mx-2" id="price" th:field="*{price}" type="text"/>
+	          </div>
 	          <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
 	        </div>
 	        <div class="col">

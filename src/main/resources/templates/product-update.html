@@ -49,9 +49,12 @@
 	      <div class="row mt-1">
 		    <div class="col-6">
 		      <label for="price">Price：</label>
-		      <input class="form-control" th:field="*{price}"
-		        id="price" type="text"/>
-		      <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
+		      <div class="d-flex">
+	            <span class="mt-1">$</span>
+		        <input class="form-control mx-2" th:field="*{price}"
+		          id="price" type="text"/>
+		        <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
+		      </div>
 		    </div>
 		    <div class="col-6">
 		      <label for="stock">Stock：</label>
