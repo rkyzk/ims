@@ -46,7 +46,8 @@
 	          <tr class="table-rows" th:each="item: ${prodList}">
 	            <td class="px-1 image">
 	              <img th:if="*{item.filePath}" th:src="${awsUrl} + ${item.filePath}"
-	                th:alt="${item.name}"/>
+	                onerror="this.src='https://ims-images-0326.s3.ap-northeast-1.amazonaws.com/no_image.png';"
+	                th:alt="${item.name}"/>	              
 	            </td>
 	            <td class="id-price-format px-1 text-center"><span th:text="${item.id}"></span></td>
 	            <td class="px-1"><span th:text="${item.category}"></span></td>

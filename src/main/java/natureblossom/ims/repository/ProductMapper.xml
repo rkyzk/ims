@@ -45,6 +45,7 @@
     WHERE
         del_flg = '0'
     ORDER BY
+        category ASC,
         id ASC
   </select>
   
