@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import natureblossom.ims.entity.Product;
 import natureblossom.ims.service.ProductService;
@@ -43,8 +44,8 @@ public class ProductListController {
 	}
 	
 	@PostMapping("/delete")
-	public String delete(Model model) {
-		int returnVal = productService.deleteProduct();	
+	public String delete(Model model, @RequestParam int id) {
+		int returnVal = productService.deleteProduct(id);	
 		return "redirect:/product-list";
 	}
 }

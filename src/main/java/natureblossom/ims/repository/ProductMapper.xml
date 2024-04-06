@@ -81,4 +81,15 @@
         id = #{id}
     <!-- AND updated_at = #{updatedAt} -->
   </update>
+  
+  <!-- delete product -->
+  <update id="deleteProduct" parameterType="natureblossom.ims.entity.Product">
+    UPDATE
+        product_entity
+    SET
+        del_flg = '1',
+        updated_at = CURRENT_TIMESTAMP
+    WHERE
+        id = #{id}
+  </update> 
 </mapper>
