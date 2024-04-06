@@ -13,7 +13,7 @@ Credit
 Deployment Process
 
 ## Overview
-With this Inventory Management System shops can keep product information, look at the product list, update and delete data.  
+With this Inventory Management System shop owners can keep products information, look at the product list, update and delete data.  
 
 ## Main Technologies Used
 HTML5, CSS3, Java (Spring Boot), Bootstrap5, jquery, Postgresql
@@ -44,9 +44,7 @@ can't get properties with camel-cased names from the DB(filePath, updatedAt)
 
 mybatis.configuration.map-underscore-to-camel-case=true
 
-can't say 'where update_at = *{updatedAt}' need to convert datetime to string
-
-
+registration clear button after having validation errors
 
 when no image is added, get 'file not found exception'
 if(!Objects.isNull(product.getMultipartFile())) not working.
@@ -56,7 +54,6 @@ When I click 'cancel,' message 'the product has been updated' appears.
 
 
 
-## Todo 
-compare update time when updating & deleting
+
 
 ## Credit
