@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import natureblossom.ims.entity.Product;
 import natureblossom.ims.service.ProductService;
@@ -34,11 +35,16 @@ public class ProductListController {
 	 */
 	@GetMapping("/product-list")
 	public String getProductList(Model model) {
-		List<Product> prodList = productService.getProductList();
-		System.out.println(prodList.get(0).getUpdatedAt());		
+		List<Product> prodList = productService.getProductList();	
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("itemCount", prodList.size());
 		model.addAttribute("awsUrl", endpoint);
 		return "product-list";
+	}
+	
+	@PostMapping("/delete")
+	public String delete(Model model) {
+		int returnVal = productService.deleteProduct();	
+		return "redirect:/product-list";
 	}
 }

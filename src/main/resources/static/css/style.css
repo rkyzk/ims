@@ -52,6 +52,16 @@ h2 {
   background-color: #eee;
 }
 
+.alert {
+  width: 350px;
+  padding: 5px 10px;
+  margin: 0 auto;
+}
+
+.hide {
+  display: none;
+}
+
 /** ---------------------------
 
 Register and Update pages

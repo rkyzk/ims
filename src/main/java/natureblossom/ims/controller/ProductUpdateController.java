@@ -2,10 +2,11 @@ package natureblossom.ims.controller;
 
 
 import java.io.IOException;
-import java.util.Objects;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
 import natureblossom.ims.entity.Product;
@@ -33,6 +35,9 @@ public class ProductUpdateController {
 	@Autowired
 	private ImageUploadService imgUploadService;
 	
+	@Autowired
+	private MessageSource msg;
+	
 	@Value("${aws.endpoint.url}")
 	private String endpoint;
 	
@@ -48,7 +53,6 @@ public class ProductUpdateController {
 			@RequestParam("id") int id) {
 		Product product = productService.getProduct(id);
 		model.addAttribute("product", product);
-		System.out.println(product.getFilePath());
 		model.addAttribute("awsUrl", endpoint);
 		return "product-update";
 	}
@@ -61,7 +65,8 @@ public class ProductUpdateController {
 	 * @return product list page
 	 */
 	@PostMapping("/product-update")
-	public String postUpdateProduct(Model model,
+	public String updateProduct(Model model, Locale locale,
+			RedirectAttributes redirectAttributes,
 			@ModelAttribute @Valid Product product,
 			BindingResult bindingResult) throws IOException {	
 		if (bindingResult.hasErrors()) {
@@ -69,7 +74,7 @@ public class ProductUpdateController {
 		}
 		
 		// if image has been added, upload it to S3 bucket
-		if(!Objects.isNull(product.getMultipartFile())) {
+		if(!product.getMultipartFile().isEmpty()) {
 			String fileName = product.getMultipartFile().getOriginalFilename();
 			String filePath = imgUploadService.uploadImg(
 					product.getMultipartFile(), product.getCategory(), fileName);		
@@ -77,10 +82,12 @@ public class ProductUpdateController {
 		}
 		
 		int returnVal = productService.updateProduct(product);
-		System.out.println(returnVal);
 //	    if (returnVal == 0) {
 //	    	// display error message
 //	    }
+		// send success message to the list controller
+		redirectAttributes.addFlashAttribute("message", msg.getMessage("UPDSUC", null, locale));
+
 		return "redirect:/product-list";
 	}
 }
