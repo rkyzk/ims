@@ -1,6 +1,7 @@
 package natureblossom.ims.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,6 @@ import lombok.Data;
 import natureblossom.ims.annotation.FileName;
 import natureblossom.ims.annotation.FileSize;
 import natureblossom.ims.annotation.FileType;
-
 /**
  * Entity class for 'Product' model.
  *
@@ -58,6 +58,9 @@ public class Product {
 	/** image file path */
 	private String filePath;
 	
+	/** image file name */
+	private String fileName;
+
 	/** image file (not to be inserted in DB) */
 	@FileType
 	@FileSize(maxSize = 819200)
@@ -65,10 +68,10 @@ public class Product {
 	private MultipartFile multipartFile;
 
 	/** created at */
-	private String createdAt;
+	private LocalDateTime createdAt;
 
 	/** updated at */
-	private String updatedAt;
+	private LocalDateTime updatedAt;
 
 	/** delete flag */
 	private char delFlg;

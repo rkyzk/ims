@@ -66,6 +66,7 @@ public class ProductUpdateController {
 	 */
 	@PostMapping("/product-update")
 	public String updateProduct(Model model, Locale locale,
+			@RequestParam("curr-img") boolean currImg,
 			RedirectAttributes redirectAttributes,
 			@ModelAttribute @Valid Product product,
 			BindingResult bindingResult) throws IOException {	
@@ -73,9 +74,16 @@ public class ProductUpdateController {
 			return "product-update";
 		}
 		
+		// if image has been removed, set filePath and fileName null.
+		if (currImg) {
+			product.setFilePath(null);
+			product.setFileName(null);
+		}
+		
 		// if image has been added, upload it to S3 bucket
 		if(!product.getMultipartFile().isEmpty()) {
 			String fileName = product.getMultipartFile().getOriginalFilename();
+			product.setFileName(fileName);
 			String filePath = imgUploadService.uploadImg(
 					product.getMultipartFile(), product.getCategory(), fileName);		
 			product.setFilePath(filePath);
@@ -87,7 +95,6 @@ public class ProductUpdateController {
 //	    }
 		// send success message to the list controller
 		redirectAttributes.addFlashAttribute("message", msg.getMessage("UPDSUC", null, locale));
-
 		return "redirect:/product-list";
 	}
 }

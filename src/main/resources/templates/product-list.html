@@ -43,10 +43,9 @@
 	        </thead>
 	        <tbody>
 	          <tr class="table-rows" th:each="item: ${prodList}">
-	            <td class="px-1">
-	            <div class="image"></div>
-	            <!-- <img class="product-img" th:src="" onerror=""
-	              th:alt="${item.name}"/> -->
+	            <td class="px-1 image">
+	              <img th:if="*{item.filePath}" th:src="${awsUrl} + ${item.filePath}"
+	                th:alt="${item.name}"/>
 	            </td>
 	            <td class="id-price-format px-1 text-center"><span th:text="${item.id}"></span></td>
 	            <td class="px-1"><span th:text="${item.category}"></span></td>

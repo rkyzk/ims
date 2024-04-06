@@ -105,11 +105,15 @@ table, th, td {
 }
 
 .table-headding {
-  background-color: #0099cc;
+  background-color: rgb(151, 194, 204);
 }
 
 .image-col {
   width: 250px;
+}
+
+.image > img {
+  max-height: 100px;
 }
 
 .name-col {

@@ -14,7 +14,8 @@
         price,
         stock,
         description,
-        file_path
+        file_path,
+        file_name
     ) VALUES (
         #{name},
         #{category},
@@ -22,7 +23,8 @@
         #{price},
         #{stock},
         #{description},
-        #{filePath}
+        #{filePath},
+        #{fileName}
     )
   </insert>
   
@@ -36,6 +38,7 @@
         price,
         stock,
         file_path,
+        file_name,
         updated_at
     FROM
         product_entity
@@ -56,6 +59,7 @@
         stock,
         description,
         file_path,
+        file_name,
         updated_at
     FROM
         product_entity
@@ -76,10 +80,10 @@
         stock = #{stock},
         description = #{description},
         file_path = #{filePath},
+        file_name = #{fileName},
         updated_at = CURRENT_TIMESTAMP
     WHERE
         id = #{id}
-    <!-- AND updated_at = #{updatedAt} -->
   </update>
   
   <!-- delete product -->

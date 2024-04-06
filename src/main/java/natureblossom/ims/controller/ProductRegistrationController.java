@@ -67,6 +67,7 @@ public class ProductRegistrationController {
 		// if image has been added, upload it to S3 bucket
 		if(!product.getMultipartFile().isEmpty()) {
 			String fileName = product.getMultipartFile().getOriginalFilename();
+			product.setFileName(fileName);
 			String filePath = imgUploadService.uploadImg(
 					product.getMultipartFile(), product.getCategory(), fileName);		
 			product.setFilePath(filePath);
