@@ -36,8 +36,9 @@ public class ProductListController {
 	/**
 	 * Display product list page.
 	 *
-	 * @param  
-	 * @param  
+	 * @param model
+	 * @param locale
+	 * @param redirectAttributes
 	 * @return product list page
 	 */
 	@GetMapping("/product-list")
@@ -51,11 +52,26 @@ public class ProductListController {
 		return "product-list";
 	}
 	
+	/**
+	 * Delete product.
+	 *
+	 * @param model
+	 * @param locale
+	 * @param id: product id
+	 * @param redirectAttributes
+	 * @return product list page
+	 */
 	@PostMapping("/delete")
 	public String delete(Model model, Locale locale, @RequestParam int id,
 			RedirectAttributes redirectAttributes) {
 		int returnVal = productService.deleteProduct(id);
-		redirectAttributes.addFlashAttribute("message", msg.getMessage("DELSUC", null, locale));
+		if (returnVal == 1) {
+			redirectAttributes.addFlashAttribute(
+					"message", msg.getMessage("DELSUC", null, locale));
+		} else {
+			redirectAttributes.addFlashAttribute(
+					"message", msg.getMessage("DELERR", null, locale));
+		}
 		return "redirect:/product-list";
 	}
 }

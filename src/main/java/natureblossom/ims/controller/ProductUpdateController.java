@@ -44,8 +44,8 @@ public class ProductUpdateController {
 	/**
 	 * Display product update page.
 	 *
-	 * @param  
-	 * @param  
+	 * @param model
+	 * @param id
 	 * @return product update page
 	 */
 	@GetMapping("/product-update")
@@ -60,16 +60,21 @@ public class ProductUpdateController {
 	/**
 	 * Update product and display product list page.
 	 *
-	 * @param  
-	 * @param  
+	 * @param model 
+	 * @param locale
+	 * @param currImg
+	 * @param redirectAttributes
+	 * @param product
+	 * @param bidingResult 
 	 * @return product list page
 	 */
 	@PostMapping("/product-update")
 	public String updateProduct(Model model, Locale locale,
-			@RequestParam("curr-img") boolean currImg,
+			@RequestParam(name="curr-img", required=false) boolean currImg,
 			RedirectAttributes redirectAttributes,
 			@ModelAttribute @Valid Product product,
-			BindingResult bindingResult) throws IOException {	
+			BindingResult bindingResult) throws IOException {
+        // if there're validation errors, show update page again.
 		if (bindingResult.hasErrors()) {
 			return "product-update";
 		}
@@ -88,13 +93,17 @@ public class ProductUpdateController {
 					product.getMultipartFile(), product.getCategory(), fileName);		
 			product.setFilePath(filePath);
 		}
-		
+
 		int returnVal = productService.updateProduct(product);
-//	    if (returnVal == 0) {
-//	    	// display error message
-//	    }
-		// send success message to the list controller
-		redirectAttributes.addFlashAttribute("message", msg.getMessage("UPDSUC", null, locale));
+	    if (returnVal == 1) {
+	    	// set success message to display on the list controller
+	    	redirectAttributes.addFlashAttribute(
+	    			"message", msg.getMessage("UPDSUC", null, locale));
+	    } else {
+	    	// set error message
+	    	redirectAttributes.addFlashAttribute(
+	    			"message", msg.getMessage("UPDERR", null, locale));
+	    }
 		return "redirect:/product-list";
 	}
 }

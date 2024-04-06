@@ -57,7 +57,6 @@ When I click 'cancel,' message 'the product has been updated' appears.
 
 
 ## Todo 
-make check box to remove the image
 compare update time when updating & deleting
 
 ## Credit
