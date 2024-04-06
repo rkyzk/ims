@@ -45,7 +45,6 @@ public class ProductListController {
 	public String getProductList(Model model, Locale locale,
 			RedirectAttributes redirectAttributes) {
 		List<Product> prodList = productService.getProductList();
-		System.out.println(prodList.get(1).getUpdatedAt());
 		model.addAttribute("prodList", prodList);
 		model.addAttribute("itemCount", prodList.size());
 		model.addAttribute("awsUrl", endpoint);

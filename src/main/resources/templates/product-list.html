@@ -34,7 +34,8 @@
                 <th class="text-center image-col">image</th>
                 <th class="text-center px-1">id</th>
                 <th class="text-center category-col">category</th> 
-	            <th class="text-center name-col">name</th>     
+	            <th class="text-center name-col">name</th>
+	            <th class="text-center name-col">manufacturer</th>   
 	            <th class="text-center">price</th>
 	            <th class="text-center px-1">stock</th>
 	            <th class="text-center">update</th>
@@ -50,6 +51,7 @@
 	            <td class="id-price-format px-1 text-center"><span th:text="${item.id}"></span></td>
 	            <td class="px-1"><span th:text="${item.category}"></span></td>
 	            <td class="px-1"><span th:text="${item.name}"></span></td>
+	            <td class="px-1"><span th:text="${item.manufacturer}"></span></td>
 	            <td class="px-1">
 	              $<span th:text="${#numbers.formatDecimal(item.price,1,2)}"></span>
 	            </td>
