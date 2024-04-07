@@ -40,6 +40,12 @@ public class Product {
 	@Size(max = 30)
 	private String manufacturer;
 
+	/** Quantity */
+	@Min(0)
+	@Max(999)
+	@NotNull
+	private int quantity;
+	
 	/** Price */
 	@NotNull
 	@DecimalMin(value = "0.00", inclusive = true)
