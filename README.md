@@ -1,5 +1,7 @@
 # Inventory Management System
 
+Link to the deployed site:
+
 ## Contents
 Overview
 Main Technologies Used
@@ -13,23 +15,35 @@ Credit
 Deployment Process
 
 ## Overview
-With this Inventory Management System shop owners can keep products information, look at the product list, update and delete data.  
+With this Inventory Management System shop owners can register products information,
+look at the product list, update and delete data.
+The app comes with functions such as input validation, delete confirmation,
+success/error messages upon registering, updating and deleting products.
 
 ## Main Technologies Used
-HTML5, CSS3, Java (Spring Boot), Bootstrap5, jquery, Postgresql
+HTML5, CSS3, Java (Spring Boot), Bootstrap5, jquery, PostgreSQL
 
 ## Funcitions
-Main functions
-1. Register products data including images
-2. Display Product List
-3. Update products data
-4. Delete products
+**Main functions**
+- Register products data including images
+- Display Product List
+- Update products data
+- Delete products
 
-other functions
+**Supplementary functions**
 - Display success messages when products have been registered, updated or deleted.
-- Validate input data on register and update pages and show error messages
-  when required fields are left blank,
-- Display confirmation modal before deleting products.
+- Validate input data while registering and updating products and show error messages
+  when validation fails.
+- Display a confirmation modal before deleting products.
+
+
+## User Stories
+
+|Intro |User Stories | How they are achieved |
+| ------------ |-------------------------------| --------------------- |
+|As user I can | register product information. | register product page |
+
+## Data Modeling
 
 ## Register Product page
 
@@ -52,8 +66,8 @@ if(!Objects.isNull(product.getMultipartFile())) not working.
 update page:
 When I click 'cancel,' message 'the product has been updated' appears.
 
-
-
+public address
+ec2-13-230-46-21.ap-northeast-1.compute.amazonaws.com
 
 
 ## Credit
