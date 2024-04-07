@@ -10,11 +10,9 @@ public enum CategoryEnum {
 	/**
 	 * Define categories.
 	 */
-	electronics("electronics"),
-	furniture("furniture"),
-	food("food"),
-	clothes("clothes"),
-	books("books"),
+	tulips("tulips"),
+	croccus("croccus"),
+	hyacinth("hyacinth"),
 	others("others");
 
 	/** product category */
