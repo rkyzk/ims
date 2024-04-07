@@ -62,6 +62,16 @@ h2 {
   display: none;
 }
 
+.link {
+  color: #2477A9;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #112F41;
+  text-decoration: underline;
+}
+
 /** ---------------------------
 
 Register and Update pages
@@ -122,5 +132,16 @@ table, th, td {
 
 .list-content {
   max-width: 800px;
-  margin: 0 auto; 	
+  margin: 0 auto;
+  margin-bottom: 20px;	
+}
+
+.btn-icon {
+  border: none;
+  background-color: transparent;
+  color: #2477A9;
+}
+
+.btn-icon:hover {
+  color: #112F41;
 }

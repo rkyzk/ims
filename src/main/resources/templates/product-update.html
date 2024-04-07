@@ -15,8 +15,14 @@
       <h2 class="text-center">Update Products</h2>
       <div class="container content-box">
         <div class="d-flex justify-content-end mx-3">
-          <button class="btn px-2 mx-1" onclick="location.href='product-registration'">register new product</button>
-          <button class="btn px-2" onclick="location.href='product-list'">product list</button>
+          <a class="link mx-5" href="http://localhost:8080/product-registration">
+            <i class="fa-regular fa-pen-to-square"></i>
+            register new products
+          </a>
+          <a class="link" href="http://localhost:8080/product-list">
+            <i class="fa-regular fa-rectangle-list"></i>
+            product list
+          </a>
         </div>
         <form th:object="${product}" role="form" method="post"
           action="/product-update" enctype="multipart/form-data">
@@ -93,11 +99,13 @@
 	      </div>
 	      <div class="my-2">
 	        <button class="btn" type="submit">update</button>
-            <button class="btn" onclick="location.href='product-list'">cancel</button>
+            <a class="btn" href="http://localhost:8080/product-list">cancel</a>
 	      </div>   
         </form>
       </div>
     </main>
     <div th:replace="~{footer :: footer}"></div>
   </body>
+  <!-- font awesome script -->
+  <script src="https://kit.fontawesome.com/b78a20097c.js" crossorigin="anonymous"></script>
 </html>

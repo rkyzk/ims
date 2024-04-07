@@ -41,7 +41,7 @@ public class Product {
 	private String manufacturer;
 
 	/** Quantity */
-	@Min(0)
+	@Min(1)
 	@Max(999)
 	@NotNull
 	private int quantity;
@@ -70,7 +70,7 @@ public class Product {
 	/** image file (not to be inserted in DB) */
 	@FileType
 	@FileSize(maxSize = 819200)
-	@FileName(maxLength = 15)
+	@FileName(maxLength = 30)
 	private MultipartFile multipartFile;
 
 	/** created at */

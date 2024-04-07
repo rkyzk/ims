@@ -11,7 +11,7 @@ public enum CategoryEnum {
 	 * Define categories.
 	 */
 	tulips("tulips"),
-	croccus("croccus"),
+	crocus("crocus"),
 	hyacinth("hyacinth"),
 	others("others");
 
