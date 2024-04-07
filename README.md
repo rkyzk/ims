@@ -3,16 +3,18 @@
 Link to the deployed site:
 
 ## Contents
-Overview
-Main Technologies Used
+[Overview](#overview).<br>
+Main Technologies Used.
+[Functions]
 User Stories
-Functions
-Functions of Each Page
 Data Modeling
-Manual Tests
-Media
-Credit
+Details about Each Page
 Deployment Process
+Manual Testing
+Bugs
+Features to be Included in the Future
+Credit
+
 
 ## Overview
 With this Inventory Management System shop owners can register products information,
@@ -39,39 +41,37 @@ HTML5, CSS3, Java (Spring Boot), Bootstrap5, jquery, PostgreSQL
 
 ## User Stories
 
-|Intro |User Stories | How they are achieved |
-| ------------ |-------------------------------| --------------------- |
-|As user I can | register product information. | register product page |
+| Intro         | User Stories                           | How they are achieved |
+| :------------ | :------------------------------------- | --------------------- |
+| As user I can | register product information.          | register product page |
+|               | upload product image.                  | image can be uploaded on register & update pages |
+|               | find out if input data is inappropriate.| validation messages  |
+|               | 
 
 ## Data Modeling
 
-## Register Product page
+## Details about Each Page
 
-## Product List page
+### Product Registration page
+### Product List page
+### Update page
 
-## 
+## Deployment Process
 
+## Manual Testing 
 
 ## Bugs
+1. 'getProductList' and 'getProduct' methods were not getting camel-cased variables from the DB.(filePath, updatedAt)
+I resolved the issue by adding the following line in application.properties.<br>
+`mybatis.configuration.map-underscore-to-camel-case=true`
 
-can't get properties with camel-cased names from the DB(filePath, updatedAt)
+2. Clicking 'clear' didn't clear the information on registration page.
+I changed the following, and the issue was resolved.<br>
 
-mybatis.configuration.map-underscore-to-camel-case=true
+3. After clicking 'cancel' on update page, success message 'The product has been updated' appeared after redirecting to the list page.  I changed the following in order to resolve the issue.<br>
 
-registration clear button after having validation errors
-
-when no image is added, get 'file not found exception'
-if(!Objects.isNull(product.getMultipartFile())) not working.
-
-update page:
-When I click 'cancel,' message 'the product has been updated' appears.
-
-public address
-ec2-13-230-46-21.ap-northeast-1.compute.amazonaws.com
-
+## Features to be Included in the Future
+- When products are deleted, I want to add a function to delete correponding images from S3 Bucket.
+- I want to implement search and filter functions for products.
 
 ## Credit
-
-
-
-https://www.flowerglossary.com/types-of-tulips/
