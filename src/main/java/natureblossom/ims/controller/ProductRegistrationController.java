@@ -2,7 +2,6 @@ package natureblossom.ims.controller;
 
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -65,10 +64,10 @@ public class ProductRegistrationController {
 		if (bindingResult.hasErrors()) {
 			return "product-registration";
 		}
-		
 		// if image has been added, upload it to S3 bucket
-		if(!Objects.isNull(product.getMultipartFile())) {
+		if(!product.getMultipartFile().isEmpty()) {
 			String fileName = product.getMultipartFile().getOriginalFilename();
+			product.setFileName(fileName);
 			String filePath = imgUploadService.uploadImg(
 					product.getMultipartFile(), product.getCategory(), fileName);		
 			product.setFilePath(filePath);

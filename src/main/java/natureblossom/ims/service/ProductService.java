@@ -60,4 +60,15 @@ public class ProductService {
 	public int updateProduct(Product product) {
 		return productMapper.updateProduct(product);
 	}
+	
+	/**
+	 * Delete product
+	 * 
+	 * @param id
+	 * @return product
+	 */
+	@Transactional
+	public int deleteProduct(int id) {
+		return productMapper.deleteProduct(id);
+	}
 }

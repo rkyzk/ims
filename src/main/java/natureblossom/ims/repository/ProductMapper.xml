@@ -11,18 +11,22 @@
         name,
         category,
         manufacturer,
+        quantity,
         price,
         stock,
         description,
-        file_path
+        file_path,
+        file_name
     ) VALUES (
         #{name},
         #{category},
         #{manufacturer},
+        #{quantity},
         #{price},
         #{stock},
         #{description},
-        #{filePath}
+        #{filePath},
+        #{fileName}
     )
   </insert>
   
@@ -33,15 +37,18 @@
         name,
         category,
         manufacturer,
+        quantity,
         price,
         stock,
         file_path,
+        file_name,
         updated_at
     FROM
         product_entity
     WHERE
         del_flg = '0'
     ORDER BY
+        category ASC,
         id ASC
   </select>
   
@@ -52,10 +59,12 @@
         name,
         category,
         manufacturer,
+        quantity,
         price,
         stock,
         description,
         file_path,
+        file_name,
         updated_at
     FROM
         product_entity
@@ -72,13 +81,25 @@
         name = #{name},
         category = #{category},
         manufacturer = #{manufacturer},
+        quantity = #{quantity},
         price = #{price},
         stock = #{stock},
         description = #{description},
         file_path = #{filePath},
+        file_name = #{fileName},
         updated_at = CURRENT_TIMESTAMP
     WHERE
         id = #{id}
-    <!-- AND updated_at = #{updatedAt} -->
   </update>
+  
+  <!-- delete product -->
+  <update id="deleteProduct" parameterType="natureblossom.ims.entity.Product">
+    UPDATE
+        product_entity
+    SET
+        del_flg = '1',
+        updated_at = CURRENT_TIMESTAMP
+    WHERE
+        id = #{id}
+  </update> 
 </mapper>

@@ -38,6 +38,7 @@ h2 {
   background-color: #446688;
   min-width: 80px;
   padding: 2px 3px;
+  white-space: nowrap;
 }
 
 .btn:hover {
@@ -51,11 +52,36 @@ h2 {
   background-color: #eee;
 }
 
+.alert {
+  width: 350px;
+  padding: 5px 10px;
+  margin: 0 auto;
+}
+
+.hide {
+  display: none;
+}
+
+.link {
+  color: #2477A9;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #112F41;
+  text-decoration: underline;
+}
+
 /** ---------------------------
 
 Register and Update pages
  
 ---------------------------- */
+.content-box {
+  max-width: 750px;
+  margin-top: 20px;
+}
+
 .select-box {
   width: 350px;
 }
@@ -89,13 +115,33 @@ table, th, td {
 }
 
 .table-headding {
-  background-color: #0099cc;
+  background-color: rgb(151, 194, 204);
 }
 
 .image-col {
   width: 250px;
 }
 
+.image > img {
+  max-height: 100px;
+}
+
 .name-col {
   width: 150px; 
+}
+
+.list-content {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-bottom: 20px;	
+}
+
+.btn-icon {
+  border: none;
+  background-color: transparent;
+  color: #2477A9;
+}
+
+.btn-icon:hover {
+  color: #112F41;
 }
