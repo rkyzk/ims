@@ -53,11 +53,7 @@ update page:
 When I click 'cancel,' message 'the product has been updated' appears.
 
 
-	/** Quantity */
-	@Min(0)
-	@Max(999)
-	@NotNull
-	private int quantity;
+
 
 
 ## Credit

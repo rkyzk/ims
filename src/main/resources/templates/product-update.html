@@ -28,46 +28,52 @@
             <label for="id">ID:</label>
             <input class="input-id" type="text" th:field="*{id}" readonly/>
           </span>      
-	      <div class="mt-1">
-	        <label for="name">Product Name：</label>
-	        <input class="form-control" th:field="*{name}" type="text"/>
-	        <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
-	      </div>
-	      <div class="col-6 mt-1">
-            <label for="category">Category：</label>
-            <select class="form-select" th:field="*{category}">
-              <option th:each="item : ${T(natureblossom.ims.enums.CategoryEnum).values()}"
-                th:value="${item}" th:text="${item.category}">
-              </option>
-            </select>
+	      <div class="row">
+            <div class="col-6">
+	          <label for="product-name" class="item-label">Product Name：</label>
+	          <input class="form-control" th:field="*{name}"
+	            type="text" aria-label="product-name" id="product-name" />
+	          <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+            </div>   
+            <div class="mt-1 col-6">
+              <label for="category" class="item-label">Category：</label>
+              <select class="form-select" id="category" th:field="*{category}">
+                <option th:each="item : ${T(natureblossom.ims.enums.CategoryEnum).values()}"
+                  th:value="${item}" th:text="${item.category}">
+                </option>
+              </select>
+            </div>
           </div>
-	      <div class="mt-1">
-	        <label for="manufacturer">Manufacturer：</label>
-	        <input class="form-control" th:field="*{manufacturer}"
-	          id="manufacturer" type="text"/>
+          <div class="col-6 mt-1">
+	        <label for="manufacturer" class="item-label">Manufacturer：</label>
+	        <input class="form-control" id="manufaturer" th:field="*{manufacturer}" type="text"/>
 	        <p class="text-danger" th:if="${#fields.hasErrors('manufacturer')}" th:errors="*{manufacturer}"/>
 	      </div>
-	      <div class="row mt-1">
-		    <div class="col-6">
-		      <label for="price">Price：</label>
-		      <div class="d-flex">
+  	      <div class="row mt-1">
+  	        <div class="col-6">
+	          <label for="quantity" class="item-label">Quantity per package：</label>
+	          <input class="form-control" id="quantity" th:field="*{quantity}" type="number"/>
+	          <p class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"/>
+	        </div>
+	        <div class="col-6">
+	          <label for="price" class="item-label">Price：</label>
+	          <div class="d-flex">
 	            <span class="mt-1">$</span>
-		        <input class="form-control mx-2" th:field="*{price}"
-		          id="price" type="text"/>
-		        <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
-		      </div>
-		    </div>
-		    <div class="col-6">
-		      <label for="stock">Stock：</label>
-		      <input class="form-control" th:field="*{stock}" type="number"/>
-		      <p class="text-danger" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"/>
-		    </div>
+	            <input class="form-control mx-2" id="price" th:field="*{price}" type="text"/>
+	          </div>
+	          <p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"/>
+	        </div>
+	      </div>     
+	      <div class="col-6">
+	        <label for="stock" class="item-label">Stock：</label>
+	        <input class="form-control" id="stock" th:field="*{stock}" type="number"/>
+	        <p class="text-danger" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"/>
 	      </div>
-	      <div class="mt-1">
-	        <label for="description">Description：</label>
-	        <textarea class="form-control" th:field="*{description}"></textarea>
-	        <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"/>
-	      </div>
+          <div class="mt-1">
+            <label for="description" class="item-label">Description：</label>
+            <textarea class="form-control" id="description" th:field="*{description}"></textarea>
+            <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"/>
+          </div>
 	      <div class="row mt-1">
 	        <div class="col-5">
 	          <label for="multipartFile">Image：</label>
