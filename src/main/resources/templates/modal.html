@@ -6,7 +6,7 @@
   </head>
   <body>    
     <!-- Delete confirmation modal taken from Bootstrap5 -->
-    <div th:fragment="modal" class="modal fade" id="confirmDelete"
+    <div th:fragment="modal" class="modal fade" th:id="'del-' + ${item.id}"
       tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
 	    <div class="modal-content">
@@ -18,7 +18,8 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn update-btn" data-bs-dismiss="modal">cancel</button>
-	        <button type="submit" class="btn update-btn">delete</button>
+	        <button type="submit" name="_method"
+	          th:formaction="@{/delete}" class="btn update-btn">delete</button>
 	      </div>
 	    </div>
 	  </div>
