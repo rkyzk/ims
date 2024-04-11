@@ -43,15 +43,16 @@ HTML5, CSS3, Java (Spring Boot), Bootstrap5, jquery, PostgreSQL
 *As user I...*
 
 |Nr.| User Stories                               | How they are achieved |
-| 1 | :----------------------------------------- | --------------------- |
-| 2 | can register product information.          | register product page |
-| 3 | can upload product image.                  | image can be uploaded on register & update pages |
-| 4 | get notified if input data is inappropriate| validation messages  |
-| 5 | look at the product list                   | product list page     |
-| 6 | find out how many products are registered. | total number of items is displayed above the table on the right side on product list page     |
-| 7 | update product information       | update product page   |
-| 8 | can delete product                   | product list   page   |
-| 9 | I can delete product                   | product list   page   |
+| - | :----------------------------------------- | --------------------- |
+| 1 | can register product information.          | register product page |
+| 2 | can upload product image.                  | image can be uploaded on register & update pages |
+| 3 | get notified if input data is inappropriate| validation messages  |
+| 4 | can look at the product list               | product list page     |
+| 5 | can find out how many products are registered. | total number of items is displayed above the table on the right side on product list page     |
+| 6 | can update product information             | update product page   |
+| 7 | can delete product                         | product list page     |
+| 8 | get confirmation before deleting product   | product list   page   |
+| 9 | can easily navigate through all pages      | navigation links, update buttons on list page |
 
 ## Data Modeling
 
