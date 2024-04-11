@@ -61,8 +61,8 @@ public class ProductListController {
 	 * @return product list page
 	 */
 	@PostMapping("/delete")
-	public String delete(Model model, Locale locale, @RequestParam int id,
-			RedirectAttributes redirectAttributes) {
+	public String delete(Model model, Locale locale,
+			RedirectAttributes redirectAttributes, @RequestParam("id") int id) {
 		int returnVal = productService.deleteProduct(id);
 		if (returnVal == 1) {
 			redirectAttributes.addFlashAttribute(
