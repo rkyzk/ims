@@ -2,7 +2,7 @@
 
 Link to the deployed site:
 
-## Contents
+### Contents
 - [Overview](#overview)
 - [Main Technologies Used](#main-technologies-used)
 - [Functions](#functions)
@@ -15,16 +15,16 @@ Link to the deployed site:
 - [Features to be Included in the Future](#features-to-be-included-in-the-future)
 - [Credit](#credit)
 
-## Overview
+### Overview
 With this Inventory Management System, shop owners can register product information,
 look at the product list, update and delete data.
 The app comes with functions such as input validation, delete confirmation,
 success/error messages upon registering, updating and deleting products.
 
-## Main Technologies Used
+### Main Technologies Used
 HTML5, CSS3, Java (Spring Boot), Bootstrap5, jquery, PostgreSQL
 
-## Functions
+### Functions
 **Main functions**
 - Register product data including images
 - Display Product List
@@ -38,7 +38,7 @@ HTML5, CSS3, Java (Spring Boot), Bootstrap5, jquery, PostgreSQL
 - Display a confirmation modal before deleting products.
 
 
-## User Stories
+### User Stories
 
 *As user I...*
 
@@ -54,36 +54,44 @@ HTML5, CSS3, Java (Spring Boot), Bootstrap5, jquery, PostgreSQL
 | 8 | get confirmation before deleting product   | product list   page   |
 | 9 | can easily navigate through all pages      | navigation links, update buttons on list page |
 
-## Data Modeling
+### Data Modeling
 
-## Each Page in Detail
+The app uses the following 'Product' entity:<br>
+<br>
+<img style="width: 500px;"src="./src/main/resources/media/data-modeling-ims.jpg" alt="data modeling for the product" />
 
-### Product Registration page
-### Product List page
-### Update page
+### Each Page in Detail
 
-## Deployment Process
+1.Product Registration page<br>
+2.Product List page<br>
+3.Update page<br>
 
-## Manual Testing
+### Deployment Process
+
+### Manual Testing
 Manual Testing is documented [here](./documents/MANUAL-TESTING.md).
 
-## Bugs
+### Bugs
 1. 'getProductList' and 'getProduct' methods were not getting camel-cased variables from the DB.(filePath, updatedAt)
 I resolved the issue by adding the following line in application.properties.<br>
 `mybatis.configuration.map-underscore-to-camel-case=true`
 
 2. Clicking 'clear' didn't clear the information on registration page.
-I changed the following, and the issue was resolved.<br>
+I changed the code as follows, and the issue was resolved.<br>
 
-3. After clicking 'cancel' on update page, success message 'The product has been updated' appeared after redirecting to the list page.  I changed the following in order to resolve the issue.<br>
+3. After clicking 'cancel' on update page, success message 'The product has been updated' appeared after redirecting to the list page.  I changed the code as follows in order to resolve the issue.<br>
 
 4. application.properties 
 ${}
 
 5. delete confirmation
 
-## Features to be Included in the Future
+### Features to be Included in the Future
 - When products are deleted, I want to add a function to delete correponding images from S3 Bucket.
-- I want to implement search and filter functions for products.
+- It'd be nice to have search and filter functions for products.
 
-## Credit
+### Credit
+
+- On JUnit tests<br>
+https://www.digitalocean.com/community/tutorials/junit-setup-maven
+https://stackoverflow.com/questions/57465271/how-to-create-objects-for-all-junit-tests

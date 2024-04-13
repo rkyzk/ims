@@ -40,9 +40,9 @@ public class Product {
 	@Size(max = 30)
 	private String manufacturer;
 
-	/** Quantity */
+	/** Quantity per package */
 	@Min(1)
-	@Max(999)
+	@Max(9999)
 	@NotNull
 	private int quantity;
 	
