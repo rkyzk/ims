@@ -2,7 +2,7 @@ package natureblossom.ims.dbtest;
 
 
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.csv.CsvURLDataSet;
+import org.dbunit.dataset.csv.CsvDataSet;
 import org.springframework.core.io.Resource;
 
 import com.github.springtestdbunit.dataset.AbstractDataSetLoader;
@@ -11,6 +11,6 @@ public class CsvDataSetLoader extends AbstractDataSetLoader{
 
     @Override
     protected IDataSet createDataSet(Resource resource) throws Exception {
-        return new CsvURLDataSet(resource.getURL());
+        return new CsvDataSet(resource.getFile());
     }
 }

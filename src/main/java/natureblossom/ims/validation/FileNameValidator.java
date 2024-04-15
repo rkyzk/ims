@@ -38,6 +38,10 @@ public class FileNameValidator implements ConstraintValidator<FileName, Multipar
 	 */
 	@Override
 	public boolean isValid(MultipartFile value, ConstraintValidatorContext context) {
-		return (value.getOriginalFilename().length() <= this.maxLength);
+		if (value != null) {
+			return (value.getOriginalFilename().length() <= this.maxLength);
+		} else {
+			return true;
+		}
 	}
 }

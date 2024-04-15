@@ -86,6 +86,12 @@ ${}
 
 5. delete confirmation
 
+Things to fix:
+registration page
+int can't be null
+quantity min = 1, so don't allow the counter to go below 1.
+also in case of "", fill in 1 onBlur with JS
+
 ### Features to be Included in the Future
 - When products are deleted, I want to add a function to delete correponding images from S3 Bucket.
 - It'd be nice to have search and filter functions for products.
@@ -95,3 +101,5 @@ ${}
 - On JUnit tests<br>
 https://www.digitalocean.com/community/tutorials/junit-setup-maven
 https://stackoverflow.com/questions/57465271/how-to-create-objects-for-all-junit-tests
+https://stackoverflow.com/questions/29069956/how-to-test-validation-annotations-of-a-class-using-junit
+https://ziqoo.com/cms/Java/MyBatis/生成されたMapperの動作確認
