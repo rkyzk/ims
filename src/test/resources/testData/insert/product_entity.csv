@@ -1,0 +1,3 @@
+"id","name","category","manufacturer","quantity","price","stock","description","file_name","file_path","created_at","updated_at","del_flg"
+1,"test","tulips","test",4,"10.50",5,null,null,null,null,null,0
+2,"test2","tulips","test2",6,"10.50",8,null,null,null,null,null,0

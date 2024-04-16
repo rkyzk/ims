@@ -13,6 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import natureblossom.ims.annotation.FileName;
 import natureblossom.ims.annotation.FileSize;
 import natureblossom.ims.annotation.FileType;
@@ -22,6 +23,7 @@ import natureblossom.ims.annotation.FileType;
  * @author R.Yazaki
  * @version 1.0.0
  */
+@NoArgsConstructor
 @Data
 public class Product {
 	/** Product ID */
@@ -40,10 +42,9 @@ public class Product {
 	@Size(max = 30)
 	private String manufacturer;
 
-	/** Quantity */
+	/** Quantity per package */
 	@Min(1)
-	@Max(999)
-	@NotNull
+	@Max(9999)
 	private int quantity;
 	
 	/** Price */
