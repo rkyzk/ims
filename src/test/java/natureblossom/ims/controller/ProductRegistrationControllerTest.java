@@ -3,10 +3,14 @@ package natureblossom.ims.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.math.BigDecimal;
+
 import org.junit.Before;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -146,19 +150,21 @@ class ProductRegistrationControllerTest {
 				.andExpect(view().name("product-registration"));
 	}
 	
-	@Test
+	@ParameterizedTest
+	@ValueSource(ints = {1, 9999})
 	@Disabled
-    void test_quantity1IsOk() throws Exception {
-		product.setQuantity(1);
+    void test_quantity1to9999IsOk(int input) throws Exception {
+		product.setQuantity(input);
 		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
 				.andExpect(model().hasNoErrors())
 				.andExpect(redirectedUrl("/product-list"));
 	}
 	
-	@Test
+	@ParameterizedTest
+	@ValueSource(ints = {0, 10000})
 	@Disabled
-    void test_quantity0CausesError() throws Exception {
-		product.setQuantity(0);
+    void test_quantity0and10000CausesError(int input) throws Exception {
+		product.setQuantity(input);
 		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
 				.andExpect(model().hasErrors())
 				.andExpect(view().name("product-registration"));
@@ -166,8 +172,17 @@ class ProductRegistrationControllerTest {
 	
 	@Test
 	@Disabled
-    void test_quantity9999IsOk() throws Exception {
-		product.setQuantity(9999);
+    void test_priceNullCausesError() throws Exception {
+		product.setPrice(null);
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasErrors())
+				.andExpect(view().name("product-registration"));
+	}
+	
+	@Test
+	@Disabled
+    void test_price0pt00IsOk() throws Exception {
+		product.setPrice(new BigDecimal("0.00"));
 		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
 				.andExpect(model().hasNoErrors())
 				.andExpect(redirectedUrl("/product-list"));
@@ -175,8 +190,58 @@ class ProductRegistrationControllerTest {
 	
 	@Test
 	@Disabled
-    void test_quantity10000CausesError() throws Exception {
-		product.setQuantity(10000);
+    void test_priceNegativeNumCausesError() throws Exception {
+		product.setPrice(new BigDecimal("-0.50"));
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasErrors())
+				.andExpect(view().name("product-registration"));
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"12345.12", "0.1"})
+	@Disabled
+    void test_priceDigitsUpto5FractionUpTo2IsOk(String input) throws Exception {
+		product.setPrice(new BigDecimal(input));
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasNoErrors())
+				.andExpect(redirectedUrl("/product-list"));
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"123456.00", "12345.123"})
+	@Disabled
+    void test_priceMoreDigitsCauseError(String input) throws Exception {
+		product.setPrice(new BigDecimal(input));
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasErrors())
+				.andExpect(view().name("product-registration"));
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints = {0, 99999})
+	@Disabled
+    void test_stock0to99999IsOk(int input) throws Exception {
+		product.setStock(input);
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasNoErrors())
+				.andExpect(redirectedUrl("/product-list"));
+	}
+	
+	@ParameterizedTest
+	@ValueSource(ints = {-1, 100000})
+	@Disabled
+    void test_stockBelow0Above99999CausesError(int input) throws Exception {
+		product.setStock(input);
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasErrors())
+				.andExpect(view().name("product-registration"));
+	}
+	
+	@Test
+	@Disabled
+    void test_descriptionAbove200CausesError() throws Exception {
+		String str = new String(new char[201]).replace("\0", "a");
+		product.setDescription(str);
 		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
 				.andExpect(model().hasErrors())
 				.andExpect(view().name("product-registration"));

@@ -10,6 +10,7 @@ Link to the deployed site:
 - [Data Modeling](#data-modeling)
 - [Each Page in Detail](#each-page-in-detail)
 - [Deployment Process](#deployment-process)
+- [Automated Testing](#automated-testing)
 - [Manual Testing](#manual-testing)
 - [Bugs](#bugs)
 - [Features to be Included in the Future](#features-to-be-included-in-the-future)
@@ -67,6 +68,9 @@ The app uses the following 'Product' entity:<br>
 3.Update page<br>
 
 ### Deployment Process
+
+### Automated Testing
+Automated Testing is documented [here](./documents/AUTOMATED-TESTING.md).
 
 ### Manual Testing
 Manual Testing is documented [here](./documents/MANUAL-TESTING.md).
