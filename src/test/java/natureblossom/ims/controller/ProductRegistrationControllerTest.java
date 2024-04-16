@@ -105,8 +105,8 @@ class ProductRegistrationControllerTest {
 	
 	@Test
 	@Disabled
-    void test_nameNullCausesError() throws Exception {
-		product.setName(null);
+    void test_nameBlankCausesError() throws Exception {
+		product.setName("");
 		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
 				.andExpect(model().hasErrors())
 				.andExpect(view().name("product-registration"));
