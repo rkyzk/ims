@@ -86,6 +86,19 @@ Register and Update pages
   width: 350px;
 }
 
+.navbar {
+  margin-left: calc(50vw + 40px);
+}
+
+.link-to-list {
+  margin-top: 8px;
+}
+
+.navlink.active {
+  border-bottom: 1px solid;
+  border-bottom-width: 3px;
+}
+
 /** ---------------------------
 
 Product update page

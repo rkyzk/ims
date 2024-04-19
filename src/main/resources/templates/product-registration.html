@@ -15,12 +15,6 @@
     <main class="container-fluid">
       <h2 class="text-center">Register Products</h2>
       <div class="container content-box">
-        <div class="d-flex justify-content-end mx-3">
-          <a class="link" href="http://localhost:8080/product-list">
-            <i class="fa-regular fa-rectangle-list"></i>
-            product list
-          </a>
-        </div>
         <form th:object="${product}" method="post"
           action="/product-registration" enctype="multipart/form-data" role="form">
           <div class="row">
