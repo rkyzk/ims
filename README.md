@@ -76,19 +76,13 @@ Automated Testing is documented [here](./documents/AUTOMATED-TESTING.md).
 Manual Testing is documented [here](./documents/MANUAL-TESTING.md).
 
 ### Bugs
-1. 'getProductList' and 'getProduct' methods were not getting camel-cased variables from the DB.(filePath, updatedAt)
-I resolved the issue by adding the following line in application.properties.<br>
+1. 'getProductList' and 'getProduct' methods were not getting values stored in variables filePath and updatedAt.  That happened because snake cased variables in postgreSQL were not converted into camel-cased variables.  I resolved the issue by adding the following line in application.properties.<br>
 `mybatis.configuration.map-underscore-to-camel-case=true`
 
-2. Clicking 'clear' didn't clear the information on registration page.
-I changed the code as follows, and the issue was resolved.<br>
+2. Sensitive data I wrote in application-local.properties were not imported in application.properties.
+I was missing "${}" around the variables.  I added it, and that solved the issue.
 
-3. After clicking 'cancel' on update page, success message 'The product has been updated' appeared after redirecting to the list page.  I changed the code as follows in order to resolve the issue.<br>
-
-4. application.properties 
-${}
-
-5. delete confirmation
+3. delete confirmation
 
 Things to fix:
 registration page
@@ -103,6 +97,7 @@ also in case of "", fill in 1 onBlur with JS
 ### Credit
 
 - On JUnit tests<br>
+https://www.vogella.com/tutorials/JUnit/article.html
 https://www.digitalocean.com/community/tutorials/junit-setup-maven
 https://stackoverflow.com/questions/57465271/how-to-create-objects-for-all-junit-tests
 https://stackoverflow.com/questions/29069956/how-to-test-validation-annotations-of-a-class-using-junit
