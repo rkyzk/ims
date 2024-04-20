@@ -79,12 +79,14 @@ public class ProductUpdateController {
 			return "product-update";
 		}
 		
-		// if image has been removed, set filePath and fileName null.
+		/** If image has been removed, delete the image from AWS storage
+		 *  and set filePath & fileName empty string.
+		 */
+		imgUploadService.deleteImg(product.getFilePath());
 		if (currImg) {
-			product.setFilePath(null);
-			product.setFileName(null);
-		}
-		
+			product.setFilePath("");
+			product.setFileName("");
+		}	
 		// if image has been added, upload it to S3 bucket
 		if(!product.getMultipartFile().isEmpty()) {
 			String fileName = product.getMultipartFile().getOriginalFilename();

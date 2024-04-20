@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.SdkClientException;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 
 
 /**
@@ -51,8 +53,19 @@ public class ImageUploadService {
 		return filePath;
 	}
 	
-	public S3Object downloadImg(String path, String fileName) {
-	        return amazonS3.getObject(path, fileName);
+	public void deleteImg(final String fileName) {
+		final DeleteObjectRequest deleteObjectRequest = new DeleteObjectRequest(bucketName, fileName);
+	    try {
+	    	amazonS3.deleteObject(deleteObjectRequest);
+	    } catch (AmazonServiceException e) {
+            // The call was transmitted successfully, but Amazon S3 couldn't process
+            // it, so it returned an error response.
+            e.printStackTrace();
+        } catch (SdkClientException e) {
+            // Amazon S3 couldn't be contacted for a response, or the client
+            // couldn't parse the response from Amazon S3.
+            e.printStackTrace();
+        }
 	}
 	
 	/*
