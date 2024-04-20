@@ -101,4 +101,11 @@ https://www.vogella.com/tutorials/JUnit/article.html
 https://www.digitalocean.com/community/tutorials/junit-setup-maven
 https://stackoverflow.com/questions/57465271/how-to-create-objects-for-all-junit-tests
 https://stackoverflow.com/questions/29069956/how-to-test-validation-annotations-of-a-class-using-junit
+https://stackoverflow.com/questions/58207609/java-mock-multipartfile-in-unit-test
 https://ziqoo.com/cms/Java/MyBatis/生成されたMapperの動作確認
+
+mock multipart files
+https://www.baeldung.com/java-convert-byte-array-to-multipartfile
+
+parameterResolver
+https://www.baeldung.com/junit-5-parameterresolutionexception

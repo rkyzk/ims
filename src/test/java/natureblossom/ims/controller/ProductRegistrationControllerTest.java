@@ -1,11 +1,12 @@
 package natureblossom.ims.controller;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.math.BigDecimal;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
@@ -30,9 +32,6 @@ import com.github.springtestdbunit.annotation.DbUnitConfiguration;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
 import natureblossom.ims.dbtest.CsvDataSetLoader;
 import natureblossom.ims.entity.Product;
 import natureblossom.ims.entity.ProductBuilder;
@@ -62,27 +61,26 @@ class ProductRegistrationControllerTest {
 	@MockBean
 	private ProductService service;
 	
-	private ProductBuilder builder = new ProductBuilder();
-	private Product product = builder.buildProduct();
+	private ProductBuilder builder;
+	private Product product;
 	
-	@Autowired
-	private Validator validator;
-	
-	@Before
-    public void setUp() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
-    }
+	@BeforeEach
+	public void getDefaultProduct() {
+		builder = new ProductBuilder();
+		product = builder.buildProduct();
+	}
 
 	@Test
 	@Disabled
-	void test_getProductRegistration_success() throws Exception {
+	void test_getRegistrationPage() throws Exception {
 		this.mockmvc.perform(get("/product-registration"))
         	.andExpect(status().isOk())
         	.andExpect(view().name("product-registration"));
 	}
 	
-	/** test product can be registered */
+	/** test product can be registered 
+	    is it not necessary to check the DB here? check if there's only one product and
+	    what the id is */
 	@Test
 	@Disabled
 	@DatabaseSetup(value = "/testData/setup")
@@ -103,7 +101,7 @@ class ProductRegistrationControllerTest {
 						"The product has been registered."))
 				.andExpect(redirectedUrl("/product-list"));			
 		}
-	
+
 	@Test
 	@Disabled
     void test_nameBlankCausesError() throws Exception {
@@ -115,6 +113,7 @@ class ProductRegistrationControllerTest {
 		// assertThat(bindingResult.getFieldError().toString()).contains("must not be blank");
 	}
 	
+	// I want to check that one product has been added. check the id.
 	@Test
 	@Disabled
     void test_nameSize40IsOk() throws Exception {
@@ -247,4 +246,89 @@ class ProductRegistrationControllerTest {
 				.andExpect(model().hasErrors())
 				.andExpect(view().name("product-registration"));
 	}
+	
+	@ParameterizedTest
+	@Disabled
+	@ValueSource(strings = {"image/png", "image/jpeg", "image/jpg"})
+    void test_fileTypeValidationNormality(String input) throws Exception {	
+		byte[] inputArray = "Test String".getBytes();
+	    MockMultipartFile mockMultipartFile = new MockMultipartFile(
+	    		"testName", "testOriginalName", input, inputArray);
+		product.setMultipartFile(mockMultipartFile);	
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasNoErrors())
+				.andExpect(redirectedUrl("/product-list"));
+	}
+	
+	@ParameterizedTest
+	@Disabled
+	@ValueSource(strings = {"image/avif", "image/gif", "image/svg"})
+    void test_fileTypesOtherThanJpgAndPng_failsValidation(String input) throws Exception {	
+		byte[] inputArray = "Test String".getBytes();
+	    MockMultipartFile mockMultipartFile = new MockMultipartFile(
+	    		"testName", "testOriginalName", input, inputArray);
+		product.setMultipartFile(mockMultipartFile);	
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasErrors())
+				.andExpect(view().name("product-registration"));
+	}
+	
+	@ParameterizedTest
+	@Disabled
+	@ValueSource(longs = {1024000, 819200})
+    void test_fileSizeValidationNormality(long input) throws Exception {	
+		byte[] inputArray = "Test String".getBytes();
+	    MockMultipartFile mockMultipartFile = new MockMultipartFile(
+	    		"testName", inputArray);
+	    when(mockMultipartFile.getSize()).thenReturn(input);	
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasNoErrors())
+				.andExpect(redirectedUrl("/product-list"));
+	}
+	
+	// not working!!!
+	@Test
+	@Disabled
+    void test_fileSizeLargerThan800KB_failsValidation() throws Exception {
+		byte[] inputArray = "Test String".getBytes();
+	    MockMultipartFile mockMultipartFile = new MockMultipartFile(
+	    		"testName", inputArray);
+	    when(mockMultipartFile.getSize()).thenReturn((long) 819201);
+	    product.setMultipartFile(mockMultipartFile);
+	    this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasErrors())
+				.andExpect(view().name("product-registration"));
+	}
+	
+	@Test
+	@Disabled
+    void test_fileName_30CharsAreOk() throws Exception {	
+		byte[] inputArray = "Test String".getBytes();
+	    MockMultipartFile mockMultipartFile = new MockMultipartFile(
+	    		"testName",
+	    		"abcdefghijklmnopqrstuvwxyz1234",
+	    		"image/png",
+	    		inputArray);
+	    product.setMultipartFile(mockMultipartFile);
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasNoErrors())
+				.andExpect(redirectedUrl("/product-list"));
+	}
+	
+	@Test
+    void test_fileName_31CharsFailsValidation() throws Exception {	
+		byte[] inputArray = "Test String".getBytes();
+	    MockMultipartFile mockMultipartFile = new MockMultipartFile(
+	    		"testName",
+	    		"abcdefghijklmnopqrstuvwxyz12345",
+	    		"image/png",
+	    		inputArray);
+	    product.setMultipartFile(mockMultipartFile);
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasErrors())
+				.andExpect(view().name("product-registration"));
+	}
+	
+	// need to test validation messages
+	// also, when no image is loaded, fileName and filePath are empty strings.
 }
