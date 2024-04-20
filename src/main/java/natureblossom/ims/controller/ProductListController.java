@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import natureblossom.ims.entity.Product;
+import natureblossom.ims.service.ImageUploadService;
 import natureblossom.ims.service.ProductService;
 
 /** Controller for product registration page.
@@ -29,6 +30,9 @@ public class ProductListController {
 	
 	@Autowired
 	private MessageSource msg;
+	
+	@Autowired
+	private ImageUploadService imgUploadService;
 	
 	@Value("${aws.endpoint.url}")
 	private String endpoint;
@@ -63,10 +67,15 @@ public class ProductListController {
 	@PostMapping("/delete")
 	public String delete(Model model, Locale locale,
 			RedirectAttributes redirectAttributes, @RequestParam("id") int id) {
+		String filePath = productService.getProduct(id).getFilePath();
 		int returnVal = productService.deleteProduct(id);
 		if (returnVal == 1) {
 			redirectAttributes.addFlashAttribute(
 					"message", msg.getMessage("DELSUC", null, locale));
+			// if there's an image, delete it from AWS storage.
+			if (filePath != null && filePath != "") {
+				imgUploadService.deleteImg(filePath);
+			}
 		} else {
 			redirectAttributes.addFlashAttribute(
 					"message", msg.getMessage("DELERR", null, locale));

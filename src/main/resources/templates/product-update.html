@@ -14,16 +14,6 @@
     <main class="container-fluid">
       <h2 class="text-center">Update Products</h2>
       <div class="container content-box">
-        <div class="d-flex justify-content-end mx-3">
-          <a class="link mx-5" href="http://localhost:8080/product-registration">
-            <i class="fa-regular fa-pen-to-square"></i>
-            register new products
-          </a>
-          <a class="link" href="http://localhost:8080/product-list">
-            <i class="fa-regular fa-rectangle-list"></i>
-            product list
-          </a>
-        </div>
         <form th:object="${product}" role="form" method="post"
           action="/product-update" enctype="multipart/form-data">
           <input type="hidden" th:field="*{delFlg}" />
