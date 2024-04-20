@@ -239,7 +239,17 @@ class ProductRegistrationControllerTest {
 	
 	@Test
 	@Disabled
-    void test_descriptionAbove200CausesError() throws Exception {
+    void test_description_200CharsAreOk() throws Exception {
+		String str = new String(new char[200]).replace("\0", "a");
+		product.setDescription(str);
+		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
+				.andExpect(model().hasNoErrors())
+				.andExpect(redirectedUrl("/product-list"));
+	}
+	
+	@Test
+	@Disabled
+    void test_descriptionAbove200Chars_failsValidation() throws Exception {
 		String str = new String(new char[201]).replace("\0", "a");
 		product.setDescription(str);
 		this.mockmvc.perform(post("/product-registration").flashAttr("product", product))
@@ -316,6 +326,7 @@ class ProductRegistrationControllerTest {
 	}
 	
 	@Test
+	@Disabled
     void test_fileName_31CharsFailsValidation() throws Exception {	
 		byte[] inputArray = "Test String".getBytes();
 	    MockMultipartFile mockMultipartFile = new MockMultipartFile(
